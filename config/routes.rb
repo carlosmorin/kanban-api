@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+
       resources :users
       resources :projects do
         post :members
@@ -10,6 +11,8 @@ Rails.application.routes.draw do
         patch :update_status
       end
       resources :comments
+      resources :tags
+
     end
   end
 end
