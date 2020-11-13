@@ -5,7 +5,8 @@ Rails.application.routes.draw do
       resources :projects do
         post :members
       end
-  		resources :categories
+      resources :categories
+      resources :issues
     end
   end
 end
