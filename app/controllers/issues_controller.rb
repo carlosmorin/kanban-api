@@ -1,7 +1,7 @@
 module Api
   module V1
     class IssuesController < ApplicationController
-      before_action :set_issue, only: [:show, :update, :destroy, :update_status]
+      before_action :set_issue, only: [:show, :update, :destroy]
 
       # GET /issues
       def index
@@ -35,13 +35,6 @@ module Api
         end
       end
 
-      def update_status 
-        if @issue.update(status: params[:status])
-          render json: @issue
-        else
-          render json: @issue.errors, status: :unprocessable_entity
-        end
-      end
       # DELETE /issues/1
       def destroy
         @issue.destroy
@@ -50,8 +43,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_issue
-          id = params[:id].present? ? params[:id] : params[:issue_id] 
-          @issue = Issue.find(id)
+          @issue = Issue.find(params[:id])
         end
 
         # Only allow a trusted parameter "white list" through.

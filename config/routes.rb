@@ -6,7 +6,9 @@ Rails.application.routes.draw do
         post :members
       end
       resources :categories
-      resources :issues
+      resources :issues do
+        patch :update_status
+      end
     end
   end
 end

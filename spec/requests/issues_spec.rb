@@ -97,6 +97,15 @@ RSpec.describe "api/v1/issues", type: :request do
       end
     end
 
+    describe "PATCH /update_status" do
+      it "updates the requested issue" do
+        issue = Issue.create! valid_attributes
+        patch api_v1_issue_url(issue), params: { issue: {status: :todo} }, as: :json
+        issue.reload
+        expect(issue.status).to eq('todo')
+      end
+    end
+    
     context "with invalid parameters" do
       it "renders a JSON response with errors for the issue" do
         issue = Issue.create! valid_attributes
