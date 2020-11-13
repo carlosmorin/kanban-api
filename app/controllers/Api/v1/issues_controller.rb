@@ -52,6 +52,7 @@ module Api
           filter_by_category if params[:category_id].present?
           filter_by_user if params[:user_id].present?
           filter_by_project if params[:project_id].present?
+          serach if params[:query].present?
         end
 
         def filter_by_category
@@ -65,6 +66,13 @@ module Api
         def filter_by_project
           @issues = @issues.where(project_id: params[:project_id])
         end
+
+        def serach
+          query = Regexp.escape(params[:query])
+
+          @issues = @issues.where("concat(subject, ' ', description) ~* ?", query)
+        end
+
         # Use callbacks to share common setup or constraints between actions.
         def set_issue
           id = params[:id].present? ? params[:id] : params[:issue_id] 
