@@ -52,6 +52,7 @@ module Api
           filter_by_category if params[:category_id].present?
           filter_by_user if params[:user_id].present?
           filter_by_project if params[:project_id].present?
+          filter_by_status if params[:status].present?
           serach if params[:query].present?
         end
 
@@ -65,6 +66,10 @@ module Api
 
         def filter_by_project
           @issues = @issues.where(project_id: params[:project_id])
+        end
+
+        def filter_by_status
+          @issues = @issues.where(status: params[:status])
         end
 
         def serach
