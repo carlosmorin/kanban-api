@@ -4,7 +4,8 @@ FactoryBot.define do
     description { "MyText" }
     status { 1 }
     due_date { "2020-11-13 00:19:26" }
-    user { nil }
-    category { nil }
+    user
+    category
+    project
   end
 end
