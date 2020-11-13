@@ -6,7 +6,7 @@ module Api
       # GET /issues
       def index
         @issues = Issue.all
-
+        filters
         render json: @issues
       end
 
@@ -48,6 +48,13 @@ module Api
       end
 
       private
+        def filters
+          filter_by_category  if params[:category_id].present?
+        end
+
+        def filter_by_category
+          @issues = @issues.where(category_id: params[:category_id])
+        end
         # Use callbacks to share common setup or constraints between actions.
         def set_issue
           id = params[:id].present? ? params[:id] : params[:issue_id] 
