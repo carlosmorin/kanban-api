@@ -54,6 +54,7 @@ module Api
           filter_by_project if params[:project_id].present?
           filter_by_status if params[:status].present?
           serach if params[:query].present?
+          sort if params[:sort].present?
         end
 
         def filter_by_category
@@ -74,8 +75,11 @@ module Api
 
         def serach
           query = Regexp.escape(params[:query])
-
           @issues = @issues.where("concat(subject, ' ', description) ~* ?", query)
+        end
+
+        def sort
+          @issues = @issues.order(created_at: params[:sort])
         end
 
         # Use callbacks to share common setup or constraints between actions.
