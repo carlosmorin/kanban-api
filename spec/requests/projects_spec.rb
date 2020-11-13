@@ -60,6 +60,16 @@ RSpec.describe "/projects", type: :request do
     end
   end
 
+  describe "POST /members" do
+    let(:project) { create :project }
+    let(:user) { create :user }
+
+    it "Link to a new user with project" do
+      post api_v1_project_members_url(project), params: { user_id: user.id }, as: :json
+      expect(response).to have_http_status(204)
+    end
+  end
+
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {

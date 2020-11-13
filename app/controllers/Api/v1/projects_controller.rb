@@ -40,6 +40,13 @@ module Api
         @project.destroy
       end
 
+      def members
+        return unless params[:project_id].present? || params[:user_id].present?
+        query = "INSERT INTO projects_users (project_id, user_id) VALUES
+          (#{params[:project_id]}, #{params[:user_id]})"
+        ActiveRecord::Base.connection.exec_query(query)
+      end
+
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_project
