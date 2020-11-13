@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :issues do
         patch :update_status
       end
+      resources :comments
     end
   end
 end
