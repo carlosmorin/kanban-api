@@ -29,9 +29,11 @@ ActiveRecord::Schema.define(version: 2020_11_13_061926) do
     t.datetime "due_date"
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_issues_on_category_id"
+    t.index ["project_id"], name: "index_issues_on_project_id"
     t.index ["user_id"], name: "index_issues_on_user_id"
   end
 
@@ -57,6 +59,7 @@ ActiveRecord::Schema.define(version: 2020_11_13_061926) do
   end
 
   add_foreign_key "issues", "categories"
+  add_foreign_key "issues", "projects"
   add_foreign_key "issues", "users"
   add_foreign_key "projects_users", "projects"
   add_foreign_key "projects_users", "users"
