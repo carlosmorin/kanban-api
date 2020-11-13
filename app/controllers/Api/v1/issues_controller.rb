@@ -12,7 +12,7 @@ module Api
 
       # GET /issues/1
       def show
-        render json: @issue
+        render json: @issue, show_comments: true
       end
 
       # POST /issues
