@@ -77,6 +77,16 @@ RSpec.describe "api/v1/issues", type: :request do
     end
   end
 
+  describe "POST /tags" do
+    let(:issue) { create :issue }
+    let(:tag) { create :tag }
+
+    it "Link to a new issue with tags" do
+      post api_v1_issue_tags_url(issue), params: { tag_id: tag.id }, as: :json
+      expect(response).to have_http_status(204)
+    end
+  end
+
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {

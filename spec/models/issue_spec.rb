@@ -5,6 +5,7 @@ RSpec.describe Issue, type: :model do
   it { should belong_to :category }
   it { should belong_to :project }
   it { should have_many :comments }
+  it { should have_and_belong_to_many :tags }
 
   it { should validate_presence_of :subject }
   it { should validate_presence_of :description }

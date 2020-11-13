@@ -25,6 +25,13 @@ module Api
           render json: @issue.errors, status: :unprocessable_entity
         end
       end
+      
+      def tags
+        return unless params[:tag_id].present? || params[:issue_id].present?
+        query = "INSERT INTO issues_tags (issue_id, tag_id) VALUES
+          (#{params[:issue_id]}, #{params[:tag_id]})"
+        ActiveRecord::Base.connection.exec_query(query)
+      end
 
       # PATCH/PUT /issues/1
       def update

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_13_094018) do
+ActiveRecord::Schema.define(version: 2020_11_13_095348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 2020_11_13_094018) do
     t.index ["user_id"], name: "index_issues_on_user_id"
   end
 
+  create_table "issues_tags", force: :cascade do |t|
+    t.bigint "issue_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["issue_id"], name: "index_issues_tags_on_issue_id"
+    t.index ["tag_id"], name: "index_issues_tags_on_tag_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -79,6 +86,8 @@ ActiveRecord::Schema.define(version: 2020_11_13_094018) do
   add_foreign_key "issues", "categories"
   add_foreign_key "issues", "projects"
   add_foreign_key "issues", "users"
+  add_foreign_key "issues_tags", "issues"
+  add_foreign_key "issues_tags", "tags"
   add_foreign_key "projects_users", "projects"
   add_foreign_key "projects_users", "users"
 end
