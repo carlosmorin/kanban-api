@@ -90,7 +90,8 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def issue_params
-          params.require(:issue).permit(:subject, :description, :status, :due_date, :user_id, :category_id)
+          params.require(:issue).permit(:subject, :description, :status,
+              :due_date, :user_id, :category_id, :project_id)
         end
     end
   end

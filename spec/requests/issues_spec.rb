@@ -4,6 +4,7 @@ RSpec.describe "api/v1/issues", type: :request do
 
   let(:category) { create :category }
   let(:user) { create :user }
+  let(:project) { create :project }
 
   let(:valid_attributes) {
     {
@@ -12,7 +13,8 @@ RSpec.describe "api/v1/issues", type: :request do
       status: :pending,
       due_date: Time.zone.now + 1.week,
       user_id: user.id,
-      category_id: category.id
+      category_id: category.id,
+      project_id: project.id
     }
   }
 
