@@ -49,11 +49,16 @@ module Api
 
       private
         def filters
-          filter_by_category  if params[:category_id].present?
+          filter_by_category if params[:category_id].present?
+          filter_by_user if params[:user_id].present?
         end
 
         def filter_by_category
           @issues = @issues.where(category_id: params[:category_id])
+        end
+
+        def filter_by_user
+          @issues = @issues.where(user_id: params[:user_id])
         end
         # Use callbacks to share common setup or constraints between actions.
         def set_issue
