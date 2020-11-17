@@ -1,5 +1,5 @@
 class IssueSerializer < ActiveModel::Serializer
-  attributes :author, :subject, :description, :comments_count
+  attributes :id, :author, :subject, :description, :project_id, :user_id,:comments_count
 
   has_many :comments, if: -> { should_show_comments }
 
@@ -8,15 +8,15 @@ class IssueSerializer < ActiveModel::Serializer
   end
 
   def author
-    object.user.name	
+    object.user.name
   end
 
   def comments_count
     object.comments.size
   end
-
+=begin
   def comments
-    comments = {}
+    comments = []
     object.comments.each do |comment|
        comments[:author] = comment.user.name
        comments[:details] = comment.body
@@ -24,5 +24,5 @@ class IssueSerializer < ActiveModel::Serializer
     end
     comments
   end
-
+=end
 end

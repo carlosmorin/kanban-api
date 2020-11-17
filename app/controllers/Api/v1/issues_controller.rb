@@ -5,9 +5,10 @@ module Api
 
       # GET /issues
       def index
-        @issues = Issue.all
-        filters
-        render json: @issues
+        params[:q] ||= {}
+        @issues = Issue.ransack(params[:q])
+        # filters
+        render json: @issues.result
       end
 
       # GET /issues/1
@@ -25,7 +26,7 @@ module Api
           render json: @issue.errors, status: :unprocessable_entity
         end
       end
-      
+
       def tags
         return unless params[:tag_id].present? || params[:issue_id].present?
         query = "INSERT INTO issues_tags (issue_id, tag_id) VALUES
